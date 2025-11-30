@@ -1,0 +1,81 @@
+package com.example.model.copy;
+
+import java.sql.Date;
+import java.time.LocalDate;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
+
+public class Cliente {
+	
+	@NotBlank
+	@NotNull
+	@Size(min = 2, max = 100)
+	private String nombre;
+	
+	@NotBlank
+	@NotNull
+	@Size(min = 5, max = 254)
+	@Email(message = "El correo no tiene un formato válido")
+	private String correo;
+	
+	@NotBlank
+	@NotNull
+	@Pattern(
+	        regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&.#_-])[A-Za-z\\d@$!%*?&.#_-]{8,}$",
+	        message = "La contraseña debe tener mínimo 8 caracteres, una mayúscula, una minúscula, un número y un caracter especial"
+	    )
+	@Size(min = 8, max = 50)
+	private String contraseña;
+	
+	@NotBlank
+	@NotNull
+	 @Pattern(
+		        regexp = "^0x[a-fA-F0-9]{40}$",
+		        message = "El address debe ser un address de Ethereum válido (0x + 40 caracteres hexadecimales)"
+		    )
+	private String adress;
+	
+	@NotBlank
+	@NotNull
+	private LocalDate fechaRegistro;
+	
+	
+	public @NotBlank @NotNull LocalDate getFechaRegistro() {
+		return fechaRegistro;
+	}
+	public void setFechaRegistro(LocalDate localDate) {
+		this.fechaRegistro = localDate;
+	}
+	public String getNombre() {
+		return nombre;
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	public String getCorreo() {
+		return correo;
+	}
+	public void setCorreo(String correo) {
+		this.correo = correo;
+	}
+	public String getContraseña() {
+		return contraseña;
+	}
+	public void setContraseña(String contraseña) {
+		this.contraseña = contraseña;
+	}
+	public String getAdress() {
+		return adress;
+	}
+	public void setAdress(String adress) {
+		this.adress = adress;
+	}
+	
+	
+}

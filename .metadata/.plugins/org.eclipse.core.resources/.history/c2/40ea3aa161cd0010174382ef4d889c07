@@ -1,0 +1,47 @@
+package com.example.demo.controlador;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Iterator;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.demo.model.Cliente;
+import com.example.demo.model.Empresa;
+import jakarta.validation.Valid;
+
+@RestController
+@RequestMapping(value = "/api/empresas")
+public class controlerEmpresas {
+	public static ArrayList<Cliente> clientes= controlerClientes.clientes;
+	public static  ArrayList<Empresa> empresas= new ArrayList<>();
+	@PostMapping
+	public void guardarCliente(@Valid @RequestBody  Empresa newEmpresa) {
+		for (Integer i=0; i< this.empresas.size() ; i++) {
+			if(this.empresas.get(i).getNombreEmpresa().equals(newEmpresa.getNombreEmpresa())) {
+				System.out.println("Error: Nombre ya registrado");
+	            return;
+			}
+
+		}
+		empresas.add(newEmpresa);
+		System.out.print(newEmpresa);
+	}
+	@GetMapping("/{adress}")
+	public  ArrayList<Empresa> obtenerTodosLasEmpresas(@PathVariable String adress) {
+		Cliente sujeto= new Cliente();
+		sujeto.setAdress(adress);
+		for(Cliente c:clientes) {
+			if(c.getAdress().equals(sujeto.getAdress())) {
+				return empresas;
+			}
+		}
+		return null;
+	}
+
+}

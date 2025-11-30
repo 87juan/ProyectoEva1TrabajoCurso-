@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<item key="hasShownOverlayPopupBefore" value="true"/>
+	<section name="java.lang.Class">
+		<item key="replaceBarOpen" value="false"/>
+		<list key="findhistory">
+			<item value="spring-boot-starter-web"/>
+			<item value="&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;"/>
+		</list>
+	</section>
+</section>

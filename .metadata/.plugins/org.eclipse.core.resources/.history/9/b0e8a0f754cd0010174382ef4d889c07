@@ -1,0 +1,88 @@
+package com.example.demo.controlador;
+import com.example.demo.controlador.controlerClientes;
+import com.example.demo.model.Autorizado;
+import com.example.demo.model.Cliente;
+
+import jakarta.validation.Valid;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+
+
+@RestController
+@RequestMapping(value = "/api/autorizados")
+public class controlerAutorizado {
+	public ArrayList<Cliente> clientes= controlerClientes.clientes;
+	public static ArrayList<Autorizado> autorizados=new ArrayList<>();
+	
+	@PostMapping
+	public void guardarAutorizado(@Valid @RequestBody Autorizado newAutorizado) {
+		
+		for (Integer i=0; i < this.autorizados.size() ; i++) {
+			if(autorizados.get(i).getNombre().equals(newAutorizado.getNombre()) || autorizados.get(i).getNombre().equals(newAutorizado.getTelefono()) ) {
+				System.out.println("Error: ese telefono o nombre ya esta en uso");
+				return;
+			}
+		}
+		
+		for (Integer i=0; i< this.clientes.size() ; i++) {
+			if(this.clientes.get(i).getAdress().equals(newAutorizado.getAdress())) {
+				autorizados.add(newAutorizado);
+				System.out.print(newAutorizado);
+				return;
+			}
+
+		}
+		System.out.println("Error: dirección no existente");
+		return;
+	}
+	
+	@GetMapping("/autorizadoPor/{adress}")
+	public ArrayList<Autorizado> verAutorizadoPorXCliente(@Valid @RequestBody String address) {
+		ArrayList<Autorizado> verUtorizados=new ArrayList<>();
+		for (Integer i=0; i < this.autorizados.size() ; i++) {
+			if(autorizados.get(i).getAdress().equals(address)) {
+				verUtorizados.add(autorizados.get(i));
+			}
+		}
+		
+		if(verUtorizados==null ||  verUtorizados.isEmpty()) {
+			System.out.println("No hay ningun autorizado por ese cliente");
+			return verUtorizados;
+		}
+		
+		return verUtorizados;
+		
+		
+	}
+	
+	
+	@PutMapping
+	public void modificarAutorizado(@Valid @RequestBody String _nombre, String _telefono, String _address) {
+		for (Integer i=0; i < this.autorizados.size() ; i++) {
+			if(autorizados.get(i).getNombre().equals(_nombre) && autorizados.get(i).getTelefono().equals(_telefono)) {
+				autorizados.get(i).setNombre(_nombre);
+				autorizados.get(i).setTelefono(_telefono);
+				return;
+			}
+
+		}
+		System.out.println("Error: Autorizado no encontrado");
+		
+	}
+	
+	@GetMapping
+	public ArrayList<Autorizado> obtenerTodosLosAutorizados() {
+		return autorizados;
+	}
+	
+	
+}
