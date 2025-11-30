@@ -1,0 +1,54 @@
+package com.example.demo.model;
+
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
+
+public class Autorizado {
+
+	@NotBlank
+	@NotNull
+	@Size(min = 2, max = 100)
+	private String nombre;
+	
+	@NotBlank
+	@NotNull
+	@Pattern(regexp = "\\d{10}", message = "El teléfono debe tener 10 números")
+	private String telefono;
+	
+	@NotBlank
+	@NotNull
+	 @Pattern(
+		        regexp = "^0x[a-fA-F0-9]{40}$",
+		        message = "El address debe ser un address de Ethereum válido (0x + 40 caracteres hexadecimales)"
+		    )
+	private String adress;
+	
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+
+	public String getAdress() {
+		return adress;
+	}
+
+	public void setAdress(String adress) {
+		this.adress = adress;
+	}
+
+	
+}

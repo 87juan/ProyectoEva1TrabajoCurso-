@@ -1,4 +1,4 @@
-package com.example.model;
+package com.example.demo.model;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -41,12 +41,10 @@ public class Cliente {
 		    )
 	private String adress;
 	
-	@NotBlank
-	@NotNull
 	private LocalDate fechaRegistro;
 	
 	
-	public @NotBlank @NotNull LocalDate getFechaRegistro() {
+	public LocalDate getFechaRegistro() {
 		return fechaRegistro;
 	}
 	public void setFechaRegistro(LocalDate localDate) {
